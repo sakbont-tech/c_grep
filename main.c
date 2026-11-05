@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(int argc, char *argv[]){
 
@@ -9,13 +10,15 @@ int main(int argc, char *argv[]){
     char *line =  NULL;
     size_t capacity = 0;
     ssize_t characters_read;
+    char *pattern;
 
-    if(argc != 2){
-        fprintf(stderr, "Usage: %s <filepath>\n", argv[0]);
+    if(argc != 3){
+        fprintf(stderr, "Usage: %s pattern <filepath>\n", argv[0]);
         return EXIT_FAILURE;
     }
 
-    fp = fopen(argv[1], "r");
+    pattern = argv[1];
+    fp = fopen(argv[2], "r");
 
     if(fp == NULL){
         perror("Unable to open file");
@@ -23,14 +26,18 @@ int main(int argc, char *argv[]){
     }
 
     while((characters_read = getline(&line, &capacity, fp)) != -1) {
-        printf("%s", line);
+        if(strstr(line, pattern) != NULL){
+            printf("%s", line);
+        }
     }
 
     if(ferror(fp)){
         perror("Error reading file");
+        return EXIT_FAILURE;
     }
 
     free(line);
     fclose(fp);
+
     return EXIT_SUCCESS;
 }
