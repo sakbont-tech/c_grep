@@ -21,7 +21,7 @@ cgrep FILE
 
 ## Milestone 1 — Search one file
 
-**Status:** Planned
+**Status:** Completed
 
 ### Goal
 
@@ -38,3 +38,18 @@ cgrep PATTERN FILE
 - Prints nothing when there are no matches.
 - Reports an error when the file does not exist or cannot be read.
 - Returns a nonzero exit code for invalid arguments and file errors.
+
+## Milestone 2 - Case insenstive searching
+
+**Status:** Planned
+
+### Interface
+
+cgrep -i PATTERN FILE
+
+### Acceptance criteria
+
+- Without `-i`, matching remains case-sensitive.
+- With `-i`, letter case is ignored.
+- Invalid options produce a usage message and nonzero exit code.
+- Patterns containing spaces still work.
